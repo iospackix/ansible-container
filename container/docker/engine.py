@@ -215,16 +215,16 @@ class Engine(BaseEngine, DockerSecretsMixin):
         for name, service in iteritems(self.services):
             if service.get('containers'):
                 for c in service['containers']:
-                    container_service_name = u"%s-%s" % (name, c['container_name'])
+                    container_service_name = u"%s/%s" % (name, c['container_name'])
                     if container_service_name == service_name:
                         if c.get('roles'):
-                            result = u'%s-%s' % (self.project_name.lower(), container_service_name.lower())
+                            result = u'%s/%s' % (self.project_name.lower(), container_service_name.lower())
                         else:
                             result = c.get('from')
                         break
             elif name == service_name:
                 if service.get('roles'):
-                    result = u'%s-%s' % (self.project_name.lower(), name.lower())
+                    result = u'%s/%s' % (self.project_name.lower(), name.lower())
                 else:
                     result = service.get('from')
             if result:
